@@ -1,10 +1,10 @@
 {
-	"version" : "0.1.0",
-	"name" : "jparser-json-lite",
+	"version" : "0.1.1",
+	"name" : "jparse-json-lite",
 	"description" : "Simple parsing for JSON strings/files",
-	"homepage" : "https://github.com/TeamworkGuy2/JParserJsonLite",
+	"homepage" : "https://github.com/TeamworkGuy2/JParseJsonLite",
 	"license" : "MIT",
-	"main" : "./bin/jparser_json_lite.jar",
+	"main" : "./bin/jparse_json_lite.jar",
 	"dependencies" : {
 		"jtext-parser": "*",
 		"jtext-util": "*"
