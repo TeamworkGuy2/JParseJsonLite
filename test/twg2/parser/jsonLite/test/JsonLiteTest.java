@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import twg2.parser.jsonLite.JsonLiteNumber;
 import twg2.parser.jsonLite.JsonLite.NumberType;
-import twg2.parser.textParser.TextParserImpl;
+import twg2.parser.textParser.TextIteratorParser;
 
 /**
  * @author TeamworkGuy2
@@ -31,7 +31,7 @@ public class JsonLiteTest {
 		for(int i = 0, size = strs.length; i < size; i++) {
 			String s = strs[i];
 			Object expect = expected[i];
-			JsonLiteNumber num = JsonLiteNumber.readNumber(TextParserImpl.of(s));
+			JsonLiteNumber num = JsonLiteNumber.readNumber(TextIteratorParser.of(s));
 			if(num.getNumberType() == NumberType.DOUBLE) {
 				Assert.assertEquals(num.asDouble(), expect);
 			}

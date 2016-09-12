@@ -4,7 +4,13 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-###[0.1.1](N/A) - 2016-09-02
+###[0.1.2](N/A) - 2016-09-11
+#### Changed
+* Updated jtext-parser dependency to latest 0.9.0 version (TextParserImpl -> TextIteratorParser)
+
+
+--------
+###[0.1.1](https://github.com/TeamworkGuy2/JParseJsonLite/commit/d366c341b32743dc47102f4c1c5b55a0cca79f0e) - 2016-09-02
 #### Changed
 * Renamed repository from JParserJsonLite -> JParseJsonLite
 

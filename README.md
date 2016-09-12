@@ -1,6 +1,6 @@
 JParseJsonLite
 ==============
-version: 0.1.1
+version: 0.1.2
 
 ####twg2.parser.jsonLite
 for parsing JSON like arrays, numbers, and strings, as well as arrays with none quoted strings.

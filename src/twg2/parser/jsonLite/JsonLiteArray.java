@@ -5,8 +5,8 @@ import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import twg2.parser.textParser.TextIteratorParser;
 import twg2.parser.textParser.TextParser;
-import twg2.parser.textParser.TextParserImpl;
 import twg2.parser.textParserUtils.ReadIsMatching;
 import twg2.parser.textParserUtils.ReadMatching;
 import twg2.parser.textParserUtils.ReadWhitespace;
@@ -59,7 +59,7 @@ public class JsonLiteArray {
 	 * @see JsonLiteArray#parseArray(TextParser, boolean, List)
 	 */
 	public static final void parseArray(String arrayString, List<String> dst) {
-		parseArray(TextParserImpl.of(arrayString), true, dst);
+		parseArray(TextIteratorParser.of(arrayString), true, dst);
 	}
 
 

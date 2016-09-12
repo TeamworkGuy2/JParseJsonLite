@@ -8,7 +8,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import twg2.parser.jsonLite.JsonLiteArray;
-import twg2.parser.textParser.TextParserImpl;
+import twg2.parser.textParser.TextIteratorParser;
+import twg2.parser.textParser.TextParser;
 import checks.CheckTask;
 
 /**
@@ -60,13 +61,13 @@ public class JsonLiteArrayTest {
 
 		CheckTask.assertTests(input, expect, (str) -> {
 			List<String> res = new ArrayList<>();
-			JsonLiteArray.parseArray(TextParserImpl.of(str, offset, str.length() - offset), true, res);
+			JsonLiteArray.parseArray(TextIteratorParser.of(str, offset, str.length() - offset), true, res);
 			return res;
 		});
 
 		CheckTask.assertTests(input, expect, (str) -> {
 			List<String> res = new ArrayList<>();
-			TextParserImpl lineBuf = TextParserImpl.of(str);
+			TextParser lineBuf = TextIteratorParser.of(str);
 			for(int i = 0; i < offset; i++) { lineBuf.nextChar(); }
 
 			JsonLiteArray.parseArray(lineBuf, true, res);
@@ -85,7 +86,7 @@ public class JsonLiteArrayTest {
 
 		CheckTask.assertTests(input, expect, null, (str) -> {
 			List<String> res = new ArrayList<>();
-			TextParserImpl lineBuf = TextParserImpl.of(str);
+			TextParser lineBuf = TextIteratorParser.of(str);
 			for(int i = 0; i < offset; i++) { lineBuf.nextChar(); }
 
 			JsonLiteArray.parseArrayLine(lineBuf, true, res);
@@ -117,7 +118,7 @@ public class JsonLiteArrayTest {
 
 		for(int i = 0, size = strs.length; i < size; i++) {
 			List<Object> elems = new ArrayList<>();
-			JsonLiteArray.parseArrayDeep(TextParserImpl.of(strs[i]), true, elems);
+			JsonLiteArray.parseArrayDeep(TextIteratorParser.of(strs[i]), true, elems);
 			CheckTask.assertTests(expect[i], elems.toArray(new Object[0]), (aryStrs) -> aryStrs);
 
 			//System.out.println("parsing JsonLite array '" + strs[i] + "': " + elems.toString());
