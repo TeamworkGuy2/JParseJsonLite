@@ -1,5 +1,6 @@
 package twg2.parser.jsonLite;
 
+import twg2.parser.jsonLite.JsonLite.NumberType;
 import twg2.parser.textParser.TextParser;
 
 /**
@@ -7,7 +8,7 @@ import twg2.parser.textParser.TextParser;
  * @since 2014-9-2
  */
 public class JsonLiteNumber {
-	private JsonLite.NumberType numberType;
+	private NumberType numberType;
 	// TODO all int and float values can be represented by longs and doubles, remove the unnecessary fields
 	private int intVal;
 	private long longVal;
@@ -40,7 +41,7 @@ public class JsonLiteNumber {
 
 
 	public void setInt(int intVal) {
-		this.numberType = JsonLite.NumberType.INTEGER;
+		this.numberType = NumberType.INTEGER;
 		this.intVal = intVal;
 		this.longVal = intVal;
 		this.floatVal = intVal;
@@ -49,35 +50,35 @@ public class JsonLiteNumber {
 
 
 	public void setLong(long longVal) {
-		this.numberType = JsonLite.NumberType.LONG;
+		this.numberType = NumberType.LONG;
 		this.longVal = longVal;
 		this.doubleVal = longVal;
 	}
 
 
 	public void setFloat(float floatVal) {
-		this.numberType = JsonLite.NumberType.FLOAT;
+		this.numberType = NumberType.FLOAT;
 		this.floatVal = floatVal;
 		this.doubleVal = floatVal;
 	}
 
 
 	public void setDouble(double doubleVal) {
-		this.numberType = JsonLite.NumberType.DOUBLE;
+		this.numberType = NumberType.DOUBLE;
 		this.doubleVal = doubleVal;
 	}
 
 
-	public JsonLite.NumberType getNumberType() {
+	public NumberType getNumberType() {
 		return numberType;
 	}
 
 
 	public int asInt() {
-		if(!JsonLite.NumberType.isIntLike(numberType)) {
+		if(!NumberType.isIntLike(numberType)) {
 			throw new IllegalStateException("cannot get int value from " + (numberType != null ? numberType.getPrimitiveTypeName() : "number") + " without precision loss");
 		}
-		if(numberType == JsonLite.NumberType.INTEGER) {
+		if(numberType == NumberType.INTEGER) {
 			return intVal;
 		}
 		else {
@@ -87,7 +88,7 @@ public class JsonLiteNumber {
 
 
 	public long asLong() {
-		if(!JsonLite.NumberType.isLongLike(numberType)) {
+		if(!NumberType.isLongLike(numberType)) {
 			throw new IllegalStateException("cannot get long value from " + (numberType != null ? numberType.getPrimitiveTypeName() : "null") + " without precision loss");
 		}
 		switch(numberType) {
@@ -102,7 +103,7 @@ public class JsonLiteNumber {
 
 
 	public float asFloat() {
-		if(!JsonLite.NumberType.isFloatLike(numberType)) {
+		if(!NumberType.isFloatLike(numberType)) {
 			throw new IllegalStateException("cannot get float value from " + (numberType != null ? numberType.getPrimitiveTypeName() : "null") + " without precision loss");
 		}
 		switch(numberType) {
@@ -117,7 +118,7 @@ public class JsonLiteNumber {
 
 
 	public double asDouble() {
-		if(!JsonLite.NumberType.isDoubleLike(numberType)) {
+		if(!NumberType.isDoubleLike(numberType)) {
 			throw new IllegalStateException("cannot get double value from " + (numberType != null ? numberType.getPrimitiveTypeName() : "null") + " without precision loss");
 		}
 		switch(numberType) {
@@ -137,7 +138,7 @@ public class JsonLiteNumber {
 
 	@Override
 	public String toString() {
-		return (numberType != null ? (JsonLite.NumberType.isLongLike(numberType) ? (numberType.getPrimitiveTypeName() + " " + asLong()) : (numberType.getPrimitiveTypeName() + " " + asDouble())) : "null numeric");
+		return (numberType != null ? (NumberType.isLongLike(numberType) ? (numberType.getPrimitiveTypeName() + " " + asLong()) : (numberType.getPrimitiveTypeName() + " " + asDouble())) : "null numeric");
 	}
 
 

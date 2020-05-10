@@ -7,10 +7,10 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import twg2.junitassist.checks.CheckTask;
 import twg2.parser.jsonLite.JsonLiteArray;
-import twg2.parser.textParser.TextIteratorParser;
+import twg2.parser.textParser.TextCharsParser;
 import twg2.parser.textParser.TextParser;
-import checks.CheckTask;
 
 /**
  * @author TeamworkGuy2
@@ -60,15 +60,19 @@ public class JsonLiteArrayTest {
 		Assert.assertEquals("inputs and expected result arrays must be the same length", input.length, expect.length);
 
 		CheckTask.assertTests(input, expect, (str) -> {
+			return JsonLiteArray.parseArray(str.substring(offset, str.length()));
+		});
+
+		CheckTask.assertTests(input, expect, (str) -> {
 			List<String> res = new ArrayList<>();
-			JsonLiteArray.parseArray(TextIteratorParser.of(str, offset, str.length() - offset), true, res);
+			JsonLiteArray.parseArray(parser(str, offset, str.length() - offset), true, res);
 			return res;
 		});
 
 		CheckTask.assertTests(input, expect, (str) -> {
 			List<String> res = new ArrayList<>();
-			TextParser lineBuf = TextIteratorParser.of(str);
-			for(int i = 0; i < offset; i++) { lineBuf.nextChar(); }
+			TextParser lineBuf = parser(str);
+			lineBuf.skip(offset);
 
 			JsonLiteArray.parseArray(lineBuf, true, res);
 			return res;
@@ -86,8 +90,8 @@ public class JsonLiteArrayTest {
 
 		CheckTask.assertTests(input, expect, null, (str) -> {
 			List<String> res = new ArrayList<>();
-			TextParser lineBuf = TextIteratorParser.of(str);
-			for(int i = 0; i < offset; i++) { lineBuf.nextChar(); }
+			TextParser lineBuf = parser(str);
+			lineBuf.skip(offset);
 
 			JsonLiteArray.parseArrayLine(lineBuf, true, res);
 			return res;
@@ -117,12 +121,22 @@ public class JsonLiteArrayTest {
 		Assert.assertEquals("array lengths", strs.length, expect.length);
 
 		for(int i = 0, size = strs.length; i < size; i++) {
-			List<Object> elems = new ArrayList<>();
-			JsonLiteArray.parseArrayDeep(TextIteratorParser.of(strs[i]), true, elems);
-			CheckTask.assertTests(expect[i], elems.toArray(new Object[0]), (aryStrs) -> aryStrs);
+			List<Object> parsedRes = new ArrayList<>();
 
-			//System.out.println("parsing JsonLite array '" + strs[i] + "': " + elems.toString());
+			JsonLiteArray.parseArrayDeep(parser(strs[i]), true, parsedRes);
+
+			CheckTask.assertTests(expect[i], parsedRes.toArray(new Object[0]), (aryStrs) -> aryStrs);
 		}
+	}
+
+
+	private static TextParser parser(String src) {
+		return TextCharsParser.of(src);
+	}
+
+
+	private static TextParser parser(String src, int off, int len) {
+		return TextCharsParser.of(src, off, len);
 	}
 
 }

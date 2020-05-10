@@ -5,12 +5,11 @@ import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import twg2.parser.textParser.TextIteratorParser;
+import twg2.parser.textParser.TextCharsParser;
 import twg2.parser.textParser.TextParser;
 import twg2.parser.textParserUtils.ReadIsMatching;
 import twg2.parser.textParserUtils.ReadMatching;
 import twg2.parser.textParserUtils.ReadWhitespace;
-import twg2.text.stringEscape.StringEscape;
 import twg2.text.stringUtils.StringCheck;
 
 /**
@@ -20,29 +19,6 @@ import twg2.text.stringUtils.StringCheck;
 public class JsonLiteArray {
 	private static final char ARRAY_START = '[';
 	private static final char ARRAY_END = ']';
-	//private static final char[] notStringArrayLike = new char[] {' '/*space*/, '	'/*tab*/, ',', ARRAY_END};
-
-
-	/** Convert an array of strings to a JSON styled array of strings (i.e. {@code ["a", "b", "c"]})
-	 */
-	public static final String stringifyArray(List<String> ary) throws IOException {
-		StringBuilder strB = new StringBuilder(ary.size() > 10 ? ary.size() > 20 ? 128 : 64 : 32);
-		strB.append(ARRAY_START);
-		if(ary.size() > 0) {
-			for(int i = 0, size = ary.size() - 1; i < size; i++) {
-				strB.append('"');
-				// replace \ and " with \\ and \"
-				StringEscape.escape(ary.get(i), '\\', '\\', '"', strB);
-				strB.append("\", ");
-			}
-			strB.append('"');
-			StringEscape.escape(ary.get(ary.size()-1), '\\', '\\', '"', strB);
-			strB.append('"');
-		}
-		strB.append(ARRAY_END);
-
-		return strB.toString();
-	}
 
 
 	/**
@@ -59,7 +35,7 @@ public class JsonLiteArray {
 	 * @see JsonLiteArray#parseArray(TextParser, boolean, List)
 	 */
 	public static final void parseArray(String arrayString, List<String> dst) {
-		parseArray(TextIteratorParser.of(arrayString), true, dst);
+		parseArray(TextCharsParser.of(arrayString), true, dst);
 	}
 
 

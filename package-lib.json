@@ -1,5 +1,5 @@
 {
-	"version" : "0.1.2",
+	"version" : "0.2.0",
 	"name" : "jparse-json-lite",
 	"description" : "Simple parsing for JSON strings/files",
 	"homepage" : "https://github.com/TeamworkGuy2/JParseJsonLite",
